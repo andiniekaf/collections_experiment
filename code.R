@@ -1,5 +1,7 @@
 setwd("xx")
 
+## LOADING THE NECESSARY PACKAGES ##
+
 library(readxl)
 library(dplyr)
 library(rlang)
@@ -9,6 +11,7 @@ library(margins)
 library(e1071)
 library(caret)
 
+## LOADING THE DATA ##
 
 Field_Experiment_Analysis <- read_excel("Field Experiment Analysis.xlsx")
 
@@ -199,11 +202,20 @@ glm.office_2 <- glm(repayment_indicator ~ treatment_indicator + pnumber.f2 + pnu
 
 # Number of Fisher Scoring iterations: 6
 
+margins.office2 <- summary(margins(glm.office_2))
+margins(glm.office_2)
+
+# treatment_indicator pnumber.f2 pnumber.f3 pnumber.f4 pnumber.f5 pnumber.f6 hp1_rpc_indicator
+#             0.06337    0.02736    0.06411   -0.01833    0.01526   -0.03674            0.5811
+
+# hp2_rpc_indicator      dd10   dd11   dd12     dd13     dd14    dd15    dd16      dd17     dd18 dd19
+#            0.4911 -0.003633 0.1077 0.0338 -0.06808 -0.03005 0.04563 -0.1917 -0.002838 -0.01411    0
+
 Field_Experiment_Analysis$prob_repay2 <- predict(glm.office_2, type="response")
 Field_Experiment_Analysis$pred_repay2 <- ifelse(Field_Experiment_Analysis$prob_repay2 > 0.5,1,0)
 confusionMatrix(table(Field_Experiment_Analysis$pred_repay2,Field_Experiment_Analysis$repayment_indicator))
 
-Confusion Matrix and Statistics
+# Confusion Matrix and Statistics
 
    
 #        0    1
