@@ -158,58 +158,11 @@ confusionMatrix(table(Field_Experiment_Analysis$pred_repay1,Field_Experiment_Ana
 
 # 2. MODEL 2 #
 
-glm.office_2 <- glm(repayment_indicator ~ treatment_indicator + pnumber.f2 + pnumber.f3 + pnumber.f4 + pnumber.f5 + pnumber.f6 + hp1_rpc_indicator + hp2_rpc_indicator + dd10 + dd11 + dd12 + dd13 + dd14 + dd15 + dd16 + dd17 + dd18 + dd19, data = Field_Experiment_Analysis, family ="binomial")
-
-# Call:
-# glm(formula = repayment_indicator ~ treatment_indicator + pnumber.f2 + 
-#    pnumber.f3 + pnumber.f4 + pnumber.f5 + pnumber.f6 + hp1_rpc_indicator + 
-#    hp2_rpc_indicator + dd10 + dd11 + dd12 + dd13 + dd14 + dd15 + 
-#    dd16 + dd17 + dd18 + dd19, family = "binomial", data = Field_Experiment_Analysis)
-
-# Deviance Residuals: 
-#    Min       1Q   Median       3Q      Max  
-# -2.8612  -1.1230   0.2644   0.9702   1.5478  
-
-# Coefficients: (1 not defined because of singularities)
-#                    Estimate Std. Error z value Pr(>|z|)    
-# (Intercept)         -0.02802    0.14930  -0.188  0.85112    
-# treatment_indicator  0.35035    0.36951   0.948  0.34305    
-# pnumber.f2           0.15123    0.11259   1.343  0.17919    
-# pnumber.f3           0.35443    0.13561   2.613  0.00896 ** 
-# pnumber.f4          -0.10136    0.16129  -0.628  0.52972    
-# pnumber.f5           0.08434    0.16219   0.520  0.60306    
-# pnumber.f6          -0.20309    0.48873  -0.416  0.67774    
-# hp1_rpc_indicator    3.21284    0.19888  16.154  < 2e-16 ***
-# hp2_rpc_indicator    2.71520    0.60155   4.514 6.37e-06 ***
-# dd10                -0.02008    0.37092  -0.054  0.95682    
-# dd11                 0.59557    0.21550   2.764  0.00572 ** 
-# dd12                 0.18684    0.35295   0.529  0.59656    
-# dd13                -0.37640    0.20878  -1.803  0.07142 .  
-# dd14                -0.16615    0.35333  -0.470  0.63818    
-# dd15                 0.25224    0.29208   0.864  0.38781    
-# dd16                -1.05960    0.36732  -2.885  0.00392 ** 
-# dd17                -0.01569    0.21091  -0.074  0.94069    
-# dd18                -0.07803    0.42996  -0.181  0.85599    
-# dd19                      NA         NA      NA       NA    
-# ---
-# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-# (Dispersion parameter for binomial family taken to be 1)
-
-#     Null deviance: 4041.2  on 3162  degrees of freedom
-# Residual deviance: 3316.3  on 3145  degrees of freedom
-# AIC: 3352.3
-
-# Number of Fisher Scoring iterations: 6
+glm.office_2 <- glm(repayment_indicator ~ treatment_indicator + pnumber.f2 + pnumber.f3 + pnumber.f4 + pnumber.f5 + pnumber.f6 + hp1_rpc_indicator + hp2_rpc_indicator + dd10 + dd11 + dd12 + dd13 + dd14 + dd15 + dd16 + dd17 + dd18, data = Field_Experiment_Analysis, family ="binomial")
 
 margins.office2 <- summary(margins(glm.office_2))
 margins(glm.office_2)
 
-# treatment_indicator pnumber.f2 pnumber.f3 pnumber.f4 pnumber.f5 pnumber.f6 hp1_rpc_indicator
-#             0.06337    0.02736    0.06411   -0.01833    0.01526   -0.03674            0.5811
-
-# hp2_rpc_indicator      dd10   dd11   dd12     dd13     dd14    dd15    dd16      dd17     dd18 dd19
-#            0.4911 -0.003633 0.1077 0.0338 -0.06808 -0.03005 0.04563 -0.1917 -0.002838 -0.01411    0
 
 Field_Experiment_Analysis$prob_repay2 <- predict(glm.office_2, type="response")
 Field_Experiment_Analysis$pred_repay2 <- ifelse(Field_Experiment_Analysis$prob_repay2 > 0.5,1,0)
